@@ -1,0 +1,52 @@
+{% load static %}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'pages:about' %}">
+                <span class="text-primary">КРИМИНОЛОГИЯ</span>
+                <span class="text-secondary fs-6 ms-1">общая часть</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                {% with request.resolver_match.view_name as view_name %}
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if view_name == 'pages:about' %}active fw-semibold{% endif %}" 
+                           href="{% url 'pages:about' %}">
+                            Аннотация
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if view_name == 'pages:intro' %}active fw-semibold{% endif %}" 
+                           href="{% url 'pages:intro' %}">
+                            Введение
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if view_name == 'pages:ending' %}active fw-semibold{% endif %}" 
+                           href="{% url 'pages:ending' %}">
+                            Заключение
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if view_name == 'pages:glossary' %}active fw-semibold{% endif %}" 
+                           href="{% url 'pages:glossary' %}">
+                            Глоссарий
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if view_name == 'pages:library' %}active fw-semibold{% endif %}" 
+                           href="{% url 'pages:library' %}">
+                            Библиография
+                        </a>
+                    </li>
+                </ul>
+                {% endwith %}
+            </div>
+        </div>
+    </nav>
+</header>
