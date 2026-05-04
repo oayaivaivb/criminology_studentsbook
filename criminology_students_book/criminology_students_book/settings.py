@@ -1,21 +1,29 @@
+"""
+Настройки проекта Criminology Students Book.
+
+Этот файл содержит основные конфигурации Django, включая:
+- Управление переменными окружения (SECRET_KEY, DEBUG).
+- Определение установленных приложений и Middleware.
+- Конфигурацию статических файлов (WhiteNoise) для работы на сервере Render.
+- Параметры баз данных и безопасности.
+
+ВАЖНО: Чувствительные данные (ключи, настройки дебага) считываются из переменных 
+окружения через os.environ.get() для безопасного деплоя.
+"""
+
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Базовая директория проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# Читаем из переменной окружения на сервере, для локальной разработки используем запасной ключ
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-!sfy9!1+=(os#cj#+43st-=t=i4v0&z^zup0oq_%b&-%=$q_sa')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# На Koyeb задайте переменную DJANGO_DEBUG=False
-DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
-
-# Разрешаем любые хосты на продакшене — но лучше задать через переменную окружения
+# --- Безопасность ---
+# Значения подтягиваются из переменных окружения (настройки Render)
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
 
-# Application definition
+# --- Приложения ---
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,9 +35,10 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
 ]
 
+# --- Middleware (обработка запросов) ---
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Для раздачи статики
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Раздача статики на Render
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -40,25 +49,23 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'criminology_students_book.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
+TEMPLATES = [{
+    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+    'DIRS': [BASE_DIR / 'templates'],
+    'APP_DIRS': True,
+    'OPTIONS': {
+        'context_processors': [
+            'django.template.context_processors.debug',
+            'django.template.context_processors.request',
+            'django.contrib.auth.context_processors.auth',
+            'django.contrib.messages.context_processors.messages',
+        ],
     },
-]
+}]
 
 WSGI_APPLICATION = 'criminology_students_book.wsgi.application'
 
-# Database
+# --- База данных ---
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -66,34 +73,25 @@ DATABASES = {
     }
 }
 
-# Password validation
+# --- Валидация паролей ---
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+# --- Локализация (РФ) ---
+LANGUAGE_CODE = 'ru-ru'
+TIME_ZONE = 'Europe/Moscow'
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# --- Статические файлы ---
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+# Сжатие статики для ускорения загрузки
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

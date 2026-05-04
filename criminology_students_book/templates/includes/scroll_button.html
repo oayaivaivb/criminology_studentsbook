@@ -1,0 +1,25 @@
+<!-- Кнопка "Наверх" -->
+<button id="scrollTopBtn" 
+        class="btn btn-primary position-fixed bottom-0 end-0 m-4 d-none shadow" 
+        style="z-index: 1000;" 
+        title="Наверх">
+    ↑
+</button>
+
+<script>
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    // Показываем/скрываем кнопку через классы Bootstrap
+    window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            scrollBtn.classList.remove("d-none"); // Убираем скрытие
+        } else {
+            scrollBtn.classList.add("d-none"); // Добавляем скрытие
+        }
+    };
+
+    // Плавный скролл
+    scrollBtn.onclick = function() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    };
+</script>
