@@ -7,6 +7,9 @@
     <meta name="keywords" content="криминология, право, юридические науки, МВД, Кикотя"> 
     <meta name="description" content="Учебник КРИМИНОЛОГИЯ (общая часть) - Московский университет МВД России имени В.Я. Кикотя">
     
+    <!-- Ваша новая иконка -->
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
+    
     <link rel="icon" href="{% static 'img/fav/favicon.ico' %}" type="image">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/fav/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
@@ -19,6 +22,25 @@
     
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Дополнительный CSS для прижатия футера к низу -->
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1 0 auto;  /* растягивает основную область, отталкивая футер вниз */
+        }
+        footer {
+            flex-shrink: 0;  /* предотвращает сжатие футера */
+        }
+    </style>
     
     {% block extra_head %}{% endblock %}
 </head>
