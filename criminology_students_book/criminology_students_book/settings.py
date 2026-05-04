@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-!sfy9!1+=(os#cj#+43
 DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 
 # Разрешаем любые хосты на продакшене — но лучше задать через переменную окружения
-ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.onrender.com']
 
 # Application definition
 INSTALLED_APPS = [
