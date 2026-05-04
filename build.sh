@@ -5,8 +5,8 @@ set -o errexit
 # Установка зависимостей
 pip install -r requirements.txt
 
-# Сбор статики (CSS, JS, картинки)
+# Сбор статики
 python criminology_students_book/manage.py collectstatic --no-input
 
-# Если вдруг когда-то появится БД, раскомментируй строку ниже:
-# python criminology_students_book/manage.py migrate
+# ПРИМЕНИТЬ МИГРАЦИИ (ОБЯЗАТЕЛЬНО!)
+python criminology_students_book/manage.py migrate --no-input
