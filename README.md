@@ -165,8 +165,3 @@ criminology_studentsbook/
 * предупреждение преступлений;
 * криминологическое прогнозирование и планирование;
 * организация криминологических исследований.
-
-## 🔗 Ссылки
-
-* 🌐 **Веб-приложение:** https://criminology-studentsbook.onrender.com/
-* 💻 **GitHub:** https://github.com/oayaivaivb/criminology_studentsbook
